@@ -13,7 +13,13 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-    console.log('New user joined!');
+    console.log('New user joined the chat!');
+
+    server.emit('newEmail', {
+        from: 'leon@gmail.com',
+        text: 'Ola Leon',
+        createdAt: 123
+    });
 
     socket.on('disconnect', () => {
         console.log('User was disconnected!');
@@ -22,4 +28,5 @@ io.on('connection', (socket) => {
 
 server.listen(port, () => {
     console.log(`Server running on ${port}`);
-})
+});
+
